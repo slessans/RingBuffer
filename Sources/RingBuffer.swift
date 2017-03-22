@@ -33,6 +33,12 @@ public struct RingBuffer<Element> {
         self.isEmpty = true
     }
     
+    public mutating func removeAll() {
+        self.bufferStartIndex = 0
+        self.bufferEndIndex = 0
+        self.isEmpty = true
+    }
+    
     // number of valid element in the buffer
     public var count: Int {
         if self.bufferStartIndex == self.bufferEndIndex {
