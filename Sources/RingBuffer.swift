@@ -1,8 +1,32 @@
 import Foundation
 
-public struct RingBuffer<Element> {
+// since struct has no deinit, we need to wrap it in a class object that
+// is reference counted so it is cleaned up when struct is deinit
+class WrappedBuffer<Element> {
+    let buffer: UnsafeMutableBufferPointer<Element>
+    
+    init(bufferSize: Int) {
+        let bufferStart: UnsafeMutablePointer<Element> = UnsafeMutablePointer.allocate(capacity: bufferSize)
+        self.buffer = UnsafeMutableBufferPointer(
+            start: bufferStart,
+            count: bufferSize
+        )
+    }
+    
+    deinit {
+        self.buffer.baseAddress!.deallocate(capacity: self.buffer.count)
+    }
+}
 
-    var buffer: [Element]
+public struct RingBuffer<Element> {
+    
+    private var _wrappedBuffer: WrappedBuffer<Element>
+    
+    mutating var buffer: UnsafeMutableBufferPointer<Element> {
+        if !isKnownUniquelyReferenced(&_wrappedBuffer) {
+            
+        }
+    }
     
     // index of the first element (the oldest element)
     var bufferStartIndex: Int
@@ -26,8 +50,8 @@ public struct RingBuffer<Element> {
         return self.buffer.count
     }
     
-    public init(bufferSize: Int, initialValue: Element) {
-        self.buffer = Array(repeating: initialValue, count: bufferSize)
+    public init(bufferSize: Int) {
+        self._wrappedBuffer = WrappedBuffer(bufferSize: bufferSize)
         self.bufferStartIndex = 0
         self.bufferEndIndex = 0
         self.isEmpty = true
