@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "9999"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_16"
-               BuildableName = "RingBuffer.framework"
-               BlueprintName = "RingBuffer"
+               BlueprintIdentifier = "F74D75791E85C5D800AB9463"
+               BuildableName = "RingBuffer MacOS.framework"
+               BlueprintName = "RingBuffer MacOS"
                ReferencedContainer = "container:RingBuffer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_23"
-               BuildableName = "RingBufferTests.xctest"
-               BlueprintName = "RingBufferTests"
-               ReferencedContainer = "container:RingBuffer.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <AdditionalOptions>
       </AdditionalOptions>
@@ -55,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_16"
-            BuildableName = "RingBuffer.framework"
-            BlueprintName = "RingBuffer"
+            BlueprintIdentifier = "F74D75791E85C5D800AB9463"
+            BuildableName = "RingBuffer MacOS.framework"
+            BlueprintName = "RingBuffer MacOS"
             ReferencedContainer = "container:RingBuffer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F74D75791E85C5D800AB9463"
+            BuildableName = "RingBuffer MacOS.framework"
+            BlueprintName = "RingBuffer MacOS"
+            ReferencedContainer = "container:RingBuffer.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
