@@ -1,8 +1,33 @@
 import Foundation
 
-public struct RingBuffer<Element> {
+class Storage<Element> {
+    var buffer: UnsafeMutableBufferPointer<Element>
+    
+    init(bufferSize: Int) {
+        let begin = malloc(MemoryLayout<Element>.size * bufferSize)!.assumingMemoryBound(to: Element.self)
+        self.buffer = UnsafeMutableBufferPointer(start: begin, count: bufferSize)
+    }
+    
+    convenience init(copying other: Storage<Element>) {
+        self.init(bufferSize: other.buffer.count)
+        memcpy(self.buffer.baseAddress!, other.buffer.baseAddress!, other.buffer.count)
+    }
+    
+    deinit {
+        free(self.buffer.baseAddress!)
+    }
+}
 
-    var buffer: [Element]
+
+public struct RingBuffer<Element> {
+    fileprivate var _storage: Storage<Element>
+    
+    fileprivate mutating func _uniqueStorage() -> Storage<Element> {
+        if !isKnownUniquelyReferenced(&self._storage) {
+            self._storage = Storage(copying: self._storage)
+        }
+        return self._storage
+    }
     
     // index of the first element (the oldest element)
     var bufferStartIndex: Int
@@ -23,11 +48,11 @@ public struct RingBuffer<Element> {
     
     // max elements this buffer can hold
     public var bufferSize: Int {
-        return self.buffer.count
+        return self._storage.buffer.count
     }
     
-    public init(bufferSize: Int, initialValue: Element) {
-        self.buffer = Array(repeating: initialValue, count: bufferSize)
+    public init(bufferSize: Int) {
+        self._storage = Storage(bufferSize: bufferSize)
         self.bufferStartIndex = 0
         self.bufferEndIndex = 0
         self.isEmpty = true
@@ -52,7 +77,7 @@ public struct RingBuffer<Element> {
         guard !self.isEmpty else {
             return nil
         }
-        return self.buffer[self.bufferStartIndex]
+        return self._storage.buffer[self.bufferStartIndex]
     }
     
     // pops first element if it exists
@@ -75,7 +100,7 @@ public struct RingBuffer<Element> {
         } else {
             popped = nil
         }
-        self.buffer[self.bufferEndIndex] = element
+        self._uniqueStorage().buffer[self.bufferEndIndex] = element
         self.bufferEndIndex = self.indexSucceeding(index: self.bufferEndIndex)
         self.isEmpty = false
         return popped
@@ -113,6 +138,6 @@ extension RingBuffer: Collection {
             fatalError("Index out of range: \(position)")
         }
         let idx = (self.bufferStartIndex + position) % self.bufferSize
-        return self.buffer[idx]
+        return self._storage.buffer[idx]
     }
 }
