@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98E425C51EC7A3BD00B873F9 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D75731E85C59E00AB9463 /* RingBuffer.swift */; };
+		98E425C61EC7A3C300B873F9 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = F74D756B1E85C54200AB9463 /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F74D756D1E85C54200AB9463 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = F74D756B1E85C54200AB9463 /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F74D75741E85C59E00AB9463 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D75731E85C59E00AB9463 /* RingBuffer.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +81,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E425C61EC7A3C300B873F9 /* RingBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E425C51EC7A3BD00B873F9 /* RingBuffer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +409,7 @@
 				F74D75811E85C5D800AB9463 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
