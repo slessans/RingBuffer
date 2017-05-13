@@ -3,9 +3,11 @@ import Foundation
 class Storage<Element> {
     var buffer: UnsafeMutableBufferPointer<Element>
     
-    init(bufferSize: Int) {
-        let begin = malloc(MemoryLayout<Element>.size * bufferSize)!.assumingMemoryBound(to: Element.self)
-        self.buffer = UnsafeMutableBufferPointer(start: begin, count: bufferSize)
+    init(bufferSize: Int) {        
+        self.buffer = UnsafeMutableBufferPointer(
+            start: UnsafeMutablePointer<Element>.allocate(capacity: bufferSize),
+            count: bufferSize
+        )
     }
     
     convenience init(copying other: Storage<Element>) {
@@ -14,7 +16,7 @@ class Storage<Element> {
     }
     
     deinit {
-        free(self.buffer.baseAddress!)
+        self.buffer.baseAddress!.deallocate(capacity: self.buffer.count)
     }
 }
 
